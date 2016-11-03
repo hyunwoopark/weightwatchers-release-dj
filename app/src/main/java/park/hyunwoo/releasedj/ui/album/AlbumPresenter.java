@@ -1,7 +1,5 @@
 package park.hyunwoo.releasedj.ui.album;
 
-import android.util.Log;
-
 import park.hyunwoo.releasedj.api.model.Albums;
 import park.hyunwoo.releasedj.ui.BaseView;
 import park.hyunwoo.releasedj.util.RxUtil;
@@ -30,12 +28,11 @@ public class AlbumPresenter implements AlbumContract.Presenter {
                     @Override
                     public void call(Albums albums) {
                         albumView.addImages(albums);
-                        Log.e("WTF", "call: shit happened");
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        Log.e("WTF", "call: " + throwable.getMessage());
+                        albumView.showSnackbarError(throwable);
                     }
                 }));
     }
@@ -43,7 +40,7 @@ public class AlbumPresenter implements AlbumContract.Presenter {
     @Override
     public void setView(BaseView view) {
         this.albumView = (AlbumContract.View) view;
-        loadAlbum();
+//        loadAlbum();
     }
 
     @Override
