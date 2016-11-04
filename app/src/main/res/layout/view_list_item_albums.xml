@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
+        android:transitionName="image"
         android:scaleType="centerCrop"
         android:id="@+id/album_image"
         android:layout_width="match_parent"

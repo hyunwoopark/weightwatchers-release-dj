@@ -8,14 +8,19 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import park.hyunwoo.releasedj.R;
 import park.hyunwoo.releasedj.api.model.DetailedAlbum;
 
-public class DetailActivity extends AppCompatActivity implements DetailContract.View{
+public class DetailActivity extends AppCompatActivity implements DetailContract.View {
 
     private static final String ID = "id";
+
+    @Inject
+    DetailContract.Presenter detailPresenter;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -38,9 +43,10 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        detailPresenter.setView(this);
 
         if (getIntent().hasExtra("id")) {
-            showDetailView(getIntent().getStringExtra("id"));
+            detailPresenter.loadAlbum(getIntent().getStringExtra("id"));
         }
     }
 
@@ -55,10 +61,5 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     @Override
     public void showSnackbarError(Throwable throwable) {
         Snackbar.make(coordinatorLayout, throwable.getMessage(), Snackbar.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void showDetailView(String id) {
-
     }
 }

@@ -29,7 +29,8 @@
         <ImageView
             android:id="@+id/detail_album_image"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/album_height_grid" />
+            android:layout_height="@dimen/album_height_grid"
+            android:transitionName="image" />
 
         <TextView
             android:id="@+id/detail_name"

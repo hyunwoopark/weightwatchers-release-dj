@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
@@ -23,6 +25,7 @@ import park.hyunwoo.releasedj.R;
 import park.hyunwoo.releasedj.ReleaseDJApplication;
 import park.hyunwoo.releasedj.adapter.AlbumAdapter;
 import park.hyunwoo.releasedj.api.model.Albums;
+import park.hyunwoo.releasedj.ui.detail.DetailActivity;
 
 public class AlbumActivity extends AppCompatActivity implements AlbumContract.View {
 
@@ -111,7 +114,12 @@ public class AlbumActivity extends AppCompatActivity implements AlbumContract.Vi
     @Override
     public void addImages(Albums albums) {
         if (albumAdapter == null) {
-            albumAdapter = new AlbumAdapter(albums.getAlbums(), this::showDetailView);
+            albumAdapter = new AlbumAdapter(albums.getAlbums(), new AlbumAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(ImageView view, String albumId) {
+                    showDetailView(view, albumId);
+                }
+            });
             setRecyclerAdapter(albumAdapter);
         } else {
             albumAdapter.addAll(albums.getAlbums());
@@ -151,7 +159,11 @@ public class AlbumActivity extends AppCompatActivity implements AlbumContract.Vi
     }
 
     @Override
-    public void showDetailView(String id) {
+    public void showDetailView(ImageView view, String id) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(this, view, "image");
+        startActivity(intent, options.toBundle());
     }
 
     @Override
