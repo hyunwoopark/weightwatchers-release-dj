@@ -49,6 +49,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(view -> onBackPressed());
         detailPresenter.setView(this);
         if (getIntent().hasExtra(ID)) {
             detailPresenter.loadAlbum(getIntent().getStringExtra(ID));
