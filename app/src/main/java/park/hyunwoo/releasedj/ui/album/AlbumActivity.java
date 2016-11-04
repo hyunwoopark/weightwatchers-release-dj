@@ -1,8 +1,6 @@
 package park.hyunwoo.releasedj.ui.album;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -60,7 +58,6 @@ public class AlbumActivity extends AppCompatActivity implements AlbumContract.Vi
     private boolean loading;
     private AlbumAdapter albumAdapter;
     private String accessToken;
-    private SharedPreferences sharedpreferences;
     private GridLayoutManager gridLayoutManager;
 
     @Override
@@ -70,17 +67,11 @@ public class AlbumActivity extends AppCompatActivity implements AlbumContract.Vi
         setContentView(R.layout.activity_album);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        sharedpreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
 
         albumPresenter.setView(this);
 
         if(savedInstanceState == null) {
-            if (!sharedpreferences.contains(ACCESS_TOKEN)) {
                 requestAuth();
-            } else {
-                accessToken = sharedpreferences.getString(ACCESS_TOKEN, "");
-                albumPresenter.loadAlbums(accessToken);
-            }
         }
     }
 
@@ -115,10 +106,6 @@ public class AlbumActivity extends AppCompatActivity implements AlbumContract.Vi
                 // Response was successful and contains auth token
                 case TOKEN:
                     accessToken = response.getAccessToken();
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
-                    editor.putString(ACCESS_TOKEN, accessToken);
-                    editor.apply();
-
                     albumPresenter.loadAlbums(accessToken);
                     break;
 
@@ -210,8 +197,10 @@ public class AlbumActivity extends AppCompatActivity implements AlbumContract.Vi
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(DATA, new AlbumsParcel(new Albums(albumAdapter.getAlbums())));
-        outState.putParcelable(RECYCLERVIEW_POSITION, gridLayoutManager.onSaveInstanceState());
-        outState.putString(ACCESS_TOKEN, accessToken);
+        if(albumAdapter != null) {
+            outState.putParcelable(DATA, new AlbumsParcel(new Albums(albumAdapter.getAlbums())));
+            outState.putParcelable(RECYCLERVIEW_POSITION, gridLayoutManager.onSaveInstanceState());
+            outState.putString(ACCESS_TOKEN, accessToken);
+        }
     }
 }
