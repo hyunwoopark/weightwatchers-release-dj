@@ -28,6 +28,7 @@ public class AlbumActivity extends AppCompatActivity implements AlbumContract.Vi
 
     private static final int REQUEST_CODE = 1337;
     private static final String REDIRECT_URI = "djrelease://callback";
+    private static final String ID = "id";
 
     @Inject
     AlbumContract.Presenter albumPresenter;

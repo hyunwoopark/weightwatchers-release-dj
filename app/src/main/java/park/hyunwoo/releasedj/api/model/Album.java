@@ -10,6 +10,7 @@ public final class Album {
 
     private String name;
     private String id;
+    private String date;
 
     @SerializedName("images")
     @Expose

@@ -1,8 +1,8 @@
 package park.hyunwoo.releasedj.api;
 
 
-import park.hyunwoo.releasedj.api.model.Album;
 import park.hyunwoo.releasedj.api.model.AlbumsResponse;
+import park.hyunwoo.releasedj.api.model.DetailedAlbum;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Path;
@@ -16,5 +16,5 @@ public interface SpotifyApi {
                                          @Query("offset") final int offset);
 
     @GET("albums/{id}")
-    Observable<Album> getAlbum(@Path("id") String id);
+    Observable<DetailedAlbum> getAlbum(@Path("id") String id);
 }
