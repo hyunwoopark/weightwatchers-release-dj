@@ -2,6 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -21,46 +22,69 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_marginTop="?attr/actionBarSize">
 
-        <ImageView
-            android:id="@+id/detail_album_image"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/album_height_grid"
-            android:transitionName="image" />
-
-        <TextView
-            android:id="@+id/detail_name"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textSize="24sp"
-            tools:text="Generic album name" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/detail_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            tools:text="Generic detail date" />
+            <ImageView
+                android:id="@+id/detail_album_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/album_height_grid"
+                android:paddingBottom="4dp"
+                android:paddingTop="16dp" />
 
-        <TextView
-            android:id="@+id/detail_artists"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            tools:text="Generic artist" />
+            <TextView
+                android:id="@+id/detail_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingBottom="4dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="4dp"
+                android:textSize="24sp"
+                tools:text="Generic album name" />
 
-        <TextView
-            android:id="@+id/detail_tracks"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            tools:text="Generic tracks" />
+            <TextView
+                android:id="@+id/detail_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingBottom="4dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="4dp"
+                tools:text="Generic detail date" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/detail_artists"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingBottom="4dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="4dp"
+                tools:text="Generic artist" />
+
+            <TextView
+                android:id="@+id/detail_tracks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingBottom="4dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="4dp"
+                tools:text="Generic tracks" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

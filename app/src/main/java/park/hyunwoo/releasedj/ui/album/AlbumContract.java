@@ -3,6 +3,7 @@ package park.hyunwoo.releasedj.ui.album;
 import android.widget.ImageView;
 
 import park.hyunwoo.releasedj.adapter.AlbumAdapter;
+import park.hyunwoo.releasedj.api.model.Album;
 import park.hyunwoo.releasedj.api.model.Albums;
 import park.hyunwoo.releasedj.api.model.AlbumsResponse;
 import park.hyunwoo.releasedj.ui.BasePresenter;
@@ -20,7 +21,7 @@ public final class AlbumContract {
 
         void addImages(Albums albums);
 
-        void showDetailView(ImageView view, String id);
+        void showDetailView(ImageView view, Album album);
 
         void setRecyclerAdapter(AlbumAdapter albumAdapter);
     }

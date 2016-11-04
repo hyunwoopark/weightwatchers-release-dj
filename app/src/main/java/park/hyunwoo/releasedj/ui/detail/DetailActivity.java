@@ -8,16 +8,20 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import park.hyunwoo.releasedj.R;
+import park.hyunwoo.releasedj.ReleaseDJApplication;
 import park.hyunwoo.releasedj.api.model.DetailedAlbum;
 
 public class DetailActivity extends AppCompatActivity implements DetailContract.View {
 
     private static final String ID = "id";
+    private static final String NAME = "name";
 
     @Inject
     DetailContract.Presenter detailPresenter;
@@ -40,22 +44,28 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ReleaseDJApplication.getApp().getComponent().inject(this);
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         detailPresenter.setView(this);
-
-        if (getIntent().hasExtra("id")) {
-            detailPresenter.loadAlbum(getIntent().getStringExtra("id"));
+        if (getIntent().hasExtra(ID)) {
+            detailPresenter.loadAlbum(getIntent().getStringExtra(ID));
         }
     }
 
     @Override
     public void addDetails(DetailedAlbum album) {
-        name.setText(album.getName());
-        date.setText(album.getReleaseDate());
-        album.getArtistsString().subscribe(s -> artists.setText(s));
-        album.getTracksString().subscribe(s -> tracks.setText(s));
+        Glide.with(this)
+                .load(album.getImages().get(0).getUrl())
+                .error(R.mipmap.ic_launcher)
+                .into(albumImage);
+
+        name.append(album.getName());
+        date.append(album.getReleaseDate());
+        album.getArtistsString().subscribe(s -> artists.append(s));
+        album.getTracks().getTracksString().subscribe(s -> tracks.append(s));
     }
 
     @Override

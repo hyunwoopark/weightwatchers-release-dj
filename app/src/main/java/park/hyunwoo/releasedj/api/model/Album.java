@@ -6,11 +6,13 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
+import nz.bradcampbell.paperparcel.PaperParcel;
+
+@PaperParcel
 public final class Album {
 
     private String name;
     private String id;
-    private String date;
 
     @SerializedName("images")
     @Expose
@@ -19,8 +21,9 @@ public final class Album {
     public Album() {
     }
 
-    public Album(final String name, final List<Images> image) {
+    public Album(final String name, final String id, final List<Images> images) {
         this.name = name;
+        this.id = id;
         this.images = images;
     }
 

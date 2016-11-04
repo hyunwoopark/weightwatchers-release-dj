@@ -1,11 +1,13 @@
 package park.hyunwoo.releasedj.api.model;
 
+import nz.bradcampbell.paperparcel.PaperParcel;
+
+@PaperParcel
 public final class Images {
 
     private int height;
     private int width;
     private String url;
-
 
     public Images() {
     }

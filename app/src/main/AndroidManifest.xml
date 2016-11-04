@@ -24,7 +24,6 @@
             // from the authentication service
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 // this needs to match the scheme and host of the redirect URI as defined in My
@@ -39,6 +38,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".ui.detail.DetailActivity"
+            android:parentActivityName=".ui.album.AlbumActivity"
             android:label="@string/title_activity_detail"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>

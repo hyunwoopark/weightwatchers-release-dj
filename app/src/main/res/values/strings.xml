@@ -2,4 +2,5 @@
     <string name="app_name">Release DJ</string>
     <string name="release_dj">Release DJ</string>
     <string name="title_activity_detail">DetailActivity</string>
+    <string name="details_title">Details</string>
 </resources>

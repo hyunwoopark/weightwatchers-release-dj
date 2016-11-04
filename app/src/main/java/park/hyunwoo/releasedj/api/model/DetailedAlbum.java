@@ -16,7 +16,7 @@ public class DetailedAlbum {
 
     List<Artists> artists = new ArrayList<>();
     List<Images> images = new ArrayList<>();
-    List<Tracks> tracks = new ArrayList<>();
+    Tracks tracks;
     String name;
 
     @SerializedName("release_date")
@@ -47,11 +47,11 @@ public class DetailedAlbum {
         this.images = images;
     }
 
-    public List<Tracks> getTracks() {
+    public Tracks getTracks() {
         return tracks;
     }
 
-    public void setTracks(List<Tracks> tracks) {
+    public void setTracks(Tracks tracks) {
         this.tracks = tracks;
     }
 
@@ -66,12 +66,6 @@ public class DetailedAlbum {
     public Observable<String> getArtistsString() {
         return Observable.from(artists)
                 .map(Artists::getName)
-                .reduce((s, s2) -> s + ", " + s2);
-    }
-
-    public Observable<String> getTracksString() {
-        return Observable.from(tracks)
-                .map(Tracks::getName)
                 .reduce((s, s2) -> s + ", " + s2);
     }
 }

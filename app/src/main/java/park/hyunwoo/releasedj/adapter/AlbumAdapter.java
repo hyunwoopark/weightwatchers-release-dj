@@ -47,7 +47,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
                 .into(viewHolder.image);
 
         viewHolder.name.setText(album.getName());
-        viewHolder.itemView.setOnClickListener(v -> listener.onItemClick(viewHolder.image, album.getId()));
+        viewHolder.itemView.setOnClickListener(v -> listener.onItemClick(viewHolder.image, album));
     }
 
     @Override
@@ -61,8 +61,12 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
         return added;
     }
 
+    public List<Album> getAlbums() {
+        return albums;
+    }
+
     public interface OnItemClickListener {
-        void onItemClick(ImageView view, String albumId);
+        void onItemClick(ImageView view, Album album);
     }
 
     static class AlbumViewHolder extends RecyclerView.ViewHolder {
