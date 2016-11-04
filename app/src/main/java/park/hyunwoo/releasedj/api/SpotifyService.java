@@ -13,10 +13,10 @@ import rx.Observable;
 
 public interface SpotifyService {
 
-    @GET("browse/new-releases")
+    @GET("browse/new-releases/")
     Observable<Albums> getAlbums(@Query("limit") final int limit,
                                  @Query("offset") final int offset);
 
-    @GET("albums/{id}")
+    @GET("albums/{id}/")
     Observable<Album> getAlbum(@Path("id") String id);
 }

@@ -41,9 +41,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
         Album album = albums.get(i);
 
         Glide.with(context)
-                .load(album.getImages())
-                .asGif()
-                .toBytes()
+                .load(album.getImages().get(0).getUrl())
                 .diskCacheStrategy(ALL)
                 .error(R.mipmap.ic_launcher)
                 .into(viewHolder.image);

@@ -3,6 +3,9 @@ package park.hyunwoo.releasedj.api.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public final class Album {
 
     private String name;
@@ -10,21 +13,21 @@ public final class Album {
 
     @SerializedName("images")
     @Expose
-    private Images images;
+    private List<Images> images = new ArrayList<>();
 
     public Album() {
     }
 
-    public Album(final String name, final Images image) {
+    public Album(final String name, final List<Images> image) {
         this.name = name;
         this.images = images;
     }
 
-    public Images getImages() {
+    public List<Images> getImages() {
         return images;
     }
 
-    public void setImages(final Images images) {
+    public void setImages(final List<Images> images) {
         this.images = images;
     }
 

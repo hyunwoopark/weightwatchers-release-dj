@@ -11,7 +11,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.album.AlbumActivity"
+        <activity
+            android:name=".ui.album.AlbumActivity"
             android:label="@string/release_dj"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -19,11 +20,25 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-    </application>
+            // An intent filter that will receive the response
+            // from the authentication service
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
-    <activity
-        android:name="com.spotify.sdk.android.authentication.LoginActivity"
-        android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                // this needs to match the scheme and host of the redirect URI as defined in My
+                applications page
+                <data
+                    android:host="callback"
+                    android:scheme="djrelease" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.spotify.sdk.android.authentication.LoginActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+    </application>
 
 </manifest>

@@ -27,8 +27,7 @@ import park.hyunwoo.releasedj.api.model.Albums;
 public class AlbumActivity extends AppCompatActivity implements AlbumContract.View {
 
     private static final int REQUEST_CODE = 1337;
-    private static final String REDIRECT_URI = "yourcustomprotocol://callback";
-    private static final String DJ_SHARED_PREFS = "djshared";
+    private static final String REDIRECT_URI = "djrelease://callback";
 
     @Inject
     AlbumContract.Presenter albumPresenter;
@@ -47,6 +46,7 @@ public class AlbumActivity extends AppCompatActivity implements AlbumContract.Vi
     private int previousTotal = 0;
     private boolean loading;
     private AlbumAdapter albumAdapter;
+    private String accessToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +62,6 @@ public class AlbumActivity extends AppCompatActivity implements AlbumContract.Vi
     private void requestAuth() {
         AuthenticationRequest.Builder builder =
                 new AuthenticationRequest.Builder(BuildConfig.CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI);
-        builder.setScopes(new String[]{"streaming"});
         AuthenticationRequest request = builder.build();
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
     }
@@ -89,7 +88,8 @@ public class AlbumActivity extends AppCompatActivity implements AlbumContract.Vi
             switch (response.getType()) {
                 // Response was successful and contains auth token
                 case TOKEN:
-                    albumPresenter.loadAlbum();
+                    accessToken = response.getAccessToken();
+                    albumPresenter.loadAlbum(accessToken);
                     break;
 
                 // Auth flow returned an error
@@ -108,6 +108,7 @@ public class AlbumActivity extends AppCompatActivity implements AlbumContract.Vi
     public void addImages(Albums albums) {
         if (albumAdapter == null) {
             albumAdapter = new AlbumAdapter(albums.getAlbums(), this::showDetailView);
+            setRecyclerAdapter(albumAdapter);
         } else {
             albumAdapter.addAll(albums.getAlbums());
         }
@@ -137,7 +138,7 @@ public class AlbumActivity extends AppCompatActivity implements AlbumContract.Vi
                 }
 
                 if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
-                    albumPresenter.loadAlbum();
+                    albumPresenter.loadAlbum(accessToken);
                     loading = true;
                 }
             }

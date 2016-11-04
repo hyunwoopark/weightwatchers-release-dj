@@ -1,9 +1,7 @@
 package park.hyunwoo.releasedj.ui.album;
 
-import park.hyunwoo.releasedj.api.model.Albums;
 import park.hyunwoo.releasedj.ui.BaseView;
 import park.hyunwoo.releasedj.util.RxUtil;
-import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
 
 public class AlbumPresenter implements AlbumContract.Presenter {
@@ -20,21 +18,12 @@ public class AlbumPresenter implements AlbumContract.Presenter {
     }
 
     @Override
-    public void loadAlbum() {
+    public void loadAlbum(String accessToken) {
         offset += LIMIT;
-        subscriptions.add(albumModel.getAlbums(LIMIT, offset)
+        subscriptions.add(albumModel.getAlbums(accessToken, LIMIT, offset)
                 .compose(RxUtil.ioThreadToMainThread())
-                .subscribe(new Action1<Albums>() {
-                    @Override
-                    public void call(Albums albums) {
-                        albumView.addImages(albums);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        albumView.showSnackbarError(throwable);
-                    }
-                }));
+                .subscribe(albumsResponse -> albumView.addImages(albumsResponse.getAlbums()),
+                        throwable -> albumView.showSnackbarError(throwable)));
     }
 
     @Override
