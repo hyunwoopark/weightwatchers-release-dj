@@ -56,12 +56,15 @@ public class AlbumActivity extends AppCompatActivity implements AlbumContract.Vi
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         albumPresenter.setView(this);
-        requestAuth();
+        if(accessToken == null) {
+            requestAuth();
+        }
     }
 
     private void requestAuth() {
         AuthenticationRequest.Builder builder =
-                new AuthenticationRequest.Builder(BuildConfig.CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI);
+                new AuthenticationRequest.Builder(BuildConfig.CLIENT_ID,
+                        AuthenticationResponse.Type.TOKEN, REDIRECT_URI);
         AuthenticationRequest request = builder.build();
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
     }
@@ -89,7 +92,7 @@ public class AlbumActivity extends AppCompatActivity implements AlbumContract.Vi
                 // Response was successful and contains auth token
                 case TOKEN:
                     accessToken = response.getAccessToken();
-                    albumPresenter.loadAlbum(accessToken);
+                    albumPresenter.loadAlbums(accessToken);
                     break;
 
                 // Auth flow returned an error
@@ -138,7 +141,7 @@ public class AlbumActivity extends AppCompatActivity implements AlbumContract.Vi
                 }
 
                 if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
-                    albumPresenter.loadAlbum(accessToken);
+                    albumPresenter.loadAlbums(accessToken);
                     loading = true;
                 }
             }

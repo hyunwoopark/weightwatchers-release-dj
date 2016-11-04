@@ -23,6 +23,6 @@ public final class AlbumContract {
 
     public interface Presenter extends BasePresenter {
 
-        void loadAlbum(String accessToken);
+        void loadAlbums(String accessToken);
     }
 }

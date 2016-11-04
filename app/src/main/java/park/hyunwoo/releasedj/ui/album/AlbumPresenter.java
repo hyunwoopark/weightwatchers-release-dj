@@ -18,7 +18,7 @@ public class AlbumPresenter implements AlbumContract.Presenter {
     }
 
     @Override
-    public void loadAlbum(String accessToken) {
+    public void loadAlbums(String accessToken) {
         offset += LIMIT;
         subscriptions.add(albumModel.getAlbums(accessToken, LIMIT, offset)
                 .compose(RxUtil.ioThreadToMainThread())
@@ -29,7 +29,6 @@ public class AlbumPresenter implements AlbumContract.Presenter {
     @Override
     public void setView(BaseView view) {
         this.albumView = (AlbumContract.View) view;
-//        loadAlbum();
     }
 
     @Override
